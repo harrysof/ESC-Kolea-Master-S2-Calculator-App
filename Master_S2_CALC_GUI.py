@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="Master 1\nCalculator",
-    page_icon= https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gifcen.com%2Fwp-content%2Fuploads%2F2023%2F01%2Fharry-potter-gif-8.gif&f=1&nofb=1&ipt=aeb99bc3df9629bafa3c0c8218c6b25cd4e5e3f020a5dcc4bab2d7e871efac60,
+    page_icon= "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gifcen.com%2Fwp-content%2Fuploads%2F2023%2F01%2Fharry-potter-gif-8.gif&f=1&nofb=1&ipt=aeb99bc3df9629bafa3c0c8218c6b25cd4e5e3f020a5dcc4bab2d7e871efac60",
     layout="wide"
 )
 
