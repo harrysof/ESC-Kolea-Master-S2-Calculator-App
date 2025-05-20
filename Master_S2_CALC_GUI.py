@@ -105,7 +105,7 @@ def calculate_semester_average():
         color = "#FE9801"  # Orange for 10-12
     
     st.markdown(f"""
-        <div class="result-box">
+        <div class="result-box" style="text-align: center;">
             <h3 style="color: #2F855A; margin: 0;">📊 Results</h3>
             <p style="font-size: 1.2rem; margin: 0.5rem 0;">
                 Moyenne S2: <strong style="color: {color}">{formatted_float}</strong><br>
