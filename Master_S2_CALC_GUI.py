@@ -109,7 +109,6 @@ def calculate_semester_average():
             <h3 style="color: #2F855A; margin: 0;">📊 Results</h3>
             <p style="font-size: 1.2rem; margin: 0.5rem 0;">
                 Moyenne S2: <strong style="color: {color}">{formatted_float}</strong><br>
-                Totale: <strong>{better_total}</strong>
             </p>
         </div>
     """, unsafe_allow_html=True)
