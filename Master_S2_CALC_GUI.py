@@ -93,11 +93,22 @@ def calculate_semester_average():
     formatted_float = "{:.2f}".format(semester_average)
     better_total = "{:.2f}".format(total_weighted_sum)
     
+    # Determine color based on average score
+    color = "#FF0000"  # Default red for below 10
+    if semester_average >= 15:
+        color = "#D89CF6"  # Purple for 15 and up
+    elif semester_average >= 14:
+        color = "#12CAD6"  # Teal for 14-15
+    elif semester_average >= 12:
+        color = "#50D890"  # Green for 12-14
+    elif semester_average >= 10:
+        color = "#FE9801"  # Orange for 10-12
+    
     st.markdown(f"""
         <div class="result-box">
             <h3 style="color: #2F855A; margin: 0;">📊 Results</h3>
             <p style="font-size: 1.2rem; margin: 0.5rem 0;">
-                Moyenne S2: <strong>{formatted_float}</strong><br>
+                Moyenne S2: <strong style="color: {color}">{formatted_float}</strong><br>
                 Totale: <strong>{better_total}</strong>
             </p>
         </div>
