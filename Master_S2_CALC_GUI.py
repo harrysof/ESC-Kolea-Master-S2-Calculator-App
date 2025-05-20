@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="Master 1\nCalculator",
-    page_icon= "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fe0.pxfuel.com%2Fwallpapers%2F176%2F985%2Fdesktop-wallpaper-harry-potter-harry-james-potter-harry-potter-face.jpg&f=1&nofb=1&ipt=00286a76ae7fb0f14cf50663b266bd1b10e60e54adfad6c531f8aa62bcc74d22",
+    page_icon= "https://imgur.com/qyhaf07",
     layout="wide"
 )
 
