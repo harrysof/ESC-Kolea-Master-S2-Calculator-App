@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="Master 1\nCalculator",
-    page_icon= "https://imgur.com/qyhaf07",
+    page_icon= "https://i.imgur.com/qyhaf07.png",
     layout="wide"
 )
 
