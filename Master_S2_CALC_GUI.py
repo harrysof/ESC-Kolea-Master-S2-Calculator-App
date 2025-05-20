@@ -113,7 +113,7 @@ with st.container():
         current_col = col1 if i < half else col2
         coef = subjects_with_coef[subject]
         with current_col:
-            st.markdown(f'<div class="subject-header">{subject} (Coef: {coef})</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="subject-header">{subject}</div>', unsafe_allow_html=True)
             subcol1, subcol2 = st.columns(2)
             with subcol1:
                 st.number_input(
