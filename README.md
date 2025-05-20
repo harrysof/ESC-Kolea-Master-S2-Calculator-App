@@ -1,4 +1,4 @@
-Simple Python With Gui to Calculate 1st semester Grade - Esc Kolea Algeria Tipaza.
+Simple Python With Gui to Calculate 2nd semester Grade - Esc Kolea Algeria Tipaza.
 
 Warning: To be used with streamlit
 
