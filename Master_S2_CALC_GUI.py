@@ -64,7 +64,7 @@ st.markdown("""
     .corner-gif {
         position: fixed;
         top: 85px;
-        right: 20px;
+        right: 40px;
         z-index: 9999;
         width: 80px;
         height: 80px;
