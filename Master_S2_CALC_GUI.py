@@ -63,7 +63,7 @@ st.markdown("""
     /* Corner GIF Styles */
     .corner-gif {
         position: fixed;
-        top: 20px;
+        top: 85px;
         right: 20px;
         z-index: 9999;
         width: 80px;
@@ -96,7 +96,7 @@ st.markdown("""
 
 # Add the corner GIF - Replace the URL with your desired GIF
 st.markdown("""
-    <img src="https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif" class="corner-gif" alt="Finance GIF">
+    <img src="https://i.gifer.com/XOsX.gif" class="corner-gif" alt="Finance GIF">
     """, unsafe_allow_html=True)
 
 st.markdown("""
