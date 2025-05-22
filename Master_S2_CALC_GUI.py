@@ -36,6 +36,43 @@ st.markdown("""
         margin-top: 1rem;
         background-color: #0e1118;
         border: 1px solid #48BB78;
+        /* Corner GIF Styles */
+    .corner-gif {
+        position: fixed;
+        top: 85px;
+        right: 20px;
+        z-index: 9999;
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+    .corner-gif:hover {
+        opacity: 1;
+        transform: scale(1.1);
+        transition: all 0.3s ease;
+    }
+    
+    /* Alternative: Bottom right corner */
+    .corner-gif-bottom {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        opacity: 0.7;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+st.markdown("""
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbestanimations.com%2FAnimals%2FMammals%2FCats%2Fcats%2Fcute-kitty-animated-gif-61.gif&f=1&nofb=1&ipt=9b9f49feca4c1a8d04b816cebb11048d1cba7254539b845380dd510c43cb5d4e" class="corner-gif" alt="Finance GIF">
+    """, unsafe_allow_html=True)
     }
     </style>
     """, unsafe_allow_html=True)
