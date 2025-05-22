@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
 
 st.set_page_config(
     page_title="Master 1\nCalculator",
@@ -83,101 +82,22 @@ st.markdown("""
     /* Alternative: Bottom right corner */
     .corner-gif-bottom {
         position: fixed;
-        top: 85px;
-        left: auto;
-        right: 10px;
+        bottom: 20px;
+        right: 20px;
         z-index: 9999;
-        width: 80px;
-        height: 80px;
-        border-radius: 10px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
         box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        opacity: 0.8;
-        transition: opacity 0.3s ease;
-        cursor: move;
+        opacity: 0.7;
     }
     </style>
-    
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const gif = document.getElementById("draggable-gif");
-        let offsetX = 0, offsetY = 0, isDragging = false;
-
-        gif.style.cursor = "move";
-
-        gif.addEventListener("mousedown", function(e) {
-            isDragging = true;
-            offsetX = e.clientX - gif.getBoundingClientRect().left;
-            offsetY = e.clientY - gif.getBoundingClientRect().top;
-            gif.style.transition = "none";
-        });
-
-        document.addEventListener("mousemove", function(e) {
-            if (isDragging) {
-                gif.style.left = `${e.clientX - offsetX}px`;
-                gif.style.top = `${e.clientY - offsetY}px`;
-                gif.style.right = "auto";
-                gif.style.bottom = "auto";
-            }
-        });
-
-        document.addEventListener("mouseup", function() {
-            isDragging = false;
-        });
-    });
-    </script>
     """, unsafe_allow_html=True)
-    
-components.html(
-    """
-    <style>
-    #draggable-gif {
-        position: fixed;
-        top: 85px;
-        right: 10px;
-        z-index: 9999;
-        width: 80px;
-        height: 80px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        opacity: 0.8;
-        cursor: move;
-        transition: opacity 0.3s ease;
-    }
-    #draggable-gif:hover {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-    </style>
-    <img src="https://i.gifer.com/XOsX.gif" id="draggable-gif" />
 
-    <script>
-    const gif = document.getElementById("draggable-gif");
-    let offsetX = 0, offsetY = 0, isDragging = false;
-
-    gif.addEventListener("mousedown", function(e) {
-        isDragging = true;
-        offsetX = e.clientX - gif.getBoundingClientRect().left;
-        offsetY = e.clientY - gif.getBoundingClientRect().top;
-        gif.style.transition = "none";
-    });
-
-    document.addEventListener("mousemove", function(e) {
-        if (isDragging) {
-            gif.style.left = (e.clientX - offsetX) + "px";
-            gif.style.top = (e.clientY - offsetY) + "px";
-            gif.style.right = "auto";
-        }
-    });
-
-    document.addEventListener("mouseup", function() {
-        isDragging = false;
-    });
-    </script>
-    """,
-    height=120,
-    width=100,
-)
-
+# Add the corner GIF - Replace the URL with your desired GIF
+st.markdown("""
+    <img src="https://i.gifer.com/XOsX.gif" class="corner-gif" alt="Finance GIF">
+    """, unsafe_allow_html=True)
 
 st.markdown("""
     <div class="main-title">
@@ -289,4 +209,5 @@ col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     if st.button("Calculer Moyenne"):
         calculate_semester_average()
+
 
