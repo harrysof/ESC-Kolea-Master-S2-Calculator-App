@@ -10,7 +10,7 @@ st.markdown("""
     <style>
     .main-title {
         font-size: 2.5rem;
-        color: #2fffe9;
+        color: #ff812f;
         text-align: center;
         padding: 1.5rem 0;
         background: #0e1118;
@@ -19,7 +19,7 @@ st.markdown("""
         font-weight: bold;
     }
     .subject-header {
-        color: #2fffe9;
+        color: #ff812f;
         font-size: 1.2rem;
         padding: 0.5rem 0;
         border-bottom: 2px solid #E2E8F0;
@@ -27,8 +27,8 @@ st.markdown("""
     }
     .stButton > button {
         width: 100%;
-        background-color: #2fffe9;
-        color: #0e1118;
+        background-color: #ff812f;
+        color: white;
     }
     .result-box {
         padding: 1rem;
@@ -37,12 +37,71 @@ st.markdown("""
         background-color: #0e1118;
         border: 1px solid #48BB78;
     }
+    .semester-selector {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    .semester-button {
+        background-color: #4f8bf9;
+        color: white;
+        padding: 10px 30px;
+        border-radius: 20px;
+        text-align: center;
+        cursor: pointer;
+        width: 150px;
+    }
+    .semester-button.active {
+        background-color: #2662de;
+        font-weight: bold;
+    }
+    .s2-color {
+        color: #2fffe9;
+    }
+    
+    /* Corner GIF Styles */
+    .corner-gif {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+    .corner-gif:hover {
+        opacity: 1;
+        transform: scale(1.1);
+        transition: all 0.3s ease;
+    }
+    
+    /* Alternative: Bottom right corner */
+    .corner-gif-bottom {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        opacity: 0.7;
+    }
     </style>
+    """, unsafe_allow_html=True)
+
+# Add the corner GIF - Replace the URL with your desired GIF
+st.markdown("""
+    <img src="https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif" class="corner-gif" alt="Finance GIF">
     """, unsafe_allow_html=True)
 
 st.markdown("""
     <div class="main-title">
-        Master S2<br>Grade Calculator<br>
+        Master Finance<br>Grade Calculator<br>
         <span style="font-size: 1.2rem; color: #dcdcdc;">By Sofiane Belkacem Nacer</span>
     </div>
     """, unsafe_allow_html=True)
