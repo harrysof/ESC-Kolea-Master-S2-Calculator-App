@@ -164,8 +164,7 @@ def calculate_s1_average():
         <div class="result-box">
             <h3 style="color: #2F855A; margin: 0;">📊 S1 Results</h3>
             <p style="font-size: 1.2rem; margin: 0.5rem 0;">
-                Semester Grade: <strong style="color: #2fffe9">{formatted_float}</strong><br>
-                Total: <strong>{better_total}</strong>
+                Moyenne S1: <strong style="color: #2fffe9">{formatted_float}</strong><br>
             </p>
         </div>
     """, unsafe_allow_html=True)
