@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="Master Grade Calculator",
-    page_icon="📊",
+    page_icon="https://i.imgur.com/hKP0yw9.png",
     layout="wide"
 )
 
