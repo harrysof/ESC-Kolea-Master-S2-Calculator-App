@@ -254,7 +254,7 @@ with tab1:
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown('<div class="s1-button">', unsafe_allow_html=True)
-        if st.button("Calculate S1 Grade", key="s1_calc"):
+        if st.button("Calculer Moyenne S1", key="s1_calc"):
             calculate_s1_average()
         st.markdown('</div>', unsafe_allow_html=True)
 
