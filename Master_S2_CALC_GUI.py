@@ -102,8 +102,8 @@ st.markdown("""
 
 # S1 subjects and data
 s1_subjects = [
-    "Inferential Statistics", "Financial Accounting", "Management",
-    "Marketing", "Macroeconomy", "Computer Science", "Law", "English"
+    "Statistiques Inférentielles", "Comptabilité Financière", "Management",
+    "Marketing", "Macroéconomie", "Informatique", "Droit", "Anglais"
 ]
 
 # S2 subjects with coefficients
@@ -153,7 +153,7 @@ def calculate_s1_average():
     total = 0
     for subject, grades in subjects_data.items():
         average = (grades["exam"] * 0.67) + (grades["td"] * 0.33)
-        weight = 4.5 if subject in ["Inferential Statistics", "Financial Accounting", "Management", "Marketing"] else 3
+        weight = 4.5 if subject in ["Statistiques Inférentielles", "Comptabilité Financière", "Management", "Marketing"] else 3
         total += average * weight
 
     semester_average = total / 30
@@ -205,7 +205,7 @@ def calculate_s2_average():
         color = "#FE9801"  # Orange for 10-12
     
     st.markdown(f"""
-        <div class="result-box" style="text-align: center;">
+        <div class="result-box">
             <h3 style="color: #2F855A; margin: 0;">📊 S2 Results</h3>
             <p style="font-size: 1.2rem; margin: 0.5rem 0;">
                 Moyenne S2: <strong style="color: {color}">{formatted_float}</strong><br>
@@ -214,7 +214,7 @@ def calculate_s2_average():
     """, unsafe_allow_html=True)
 
 # Create tabs
-tab1, tab2 = st.tabs(["🎯 Semester 1", "🚀 Semester 2"])
+tab1, tab2 = st.tabs(["Semestre 1", "Semestre 2"])
 
 with tab1:
     st.markdown("### Semester 1 Calculator")
@@ -226,7 +226,7 @@ with tab1:
         
         for i, subject in enumerate(s1_subjects):
             current_col = col1 if i < half else col2
-            coef = 4.5 if subject in ["Inferential Statistics", "Financial Accounting", "Management", "Marketing"] else 3
+            coef = 4.5 if subject in ["Statistiques Inférentielles", "Comptabilité Financière", "Management", "Marketing"] else 3
             with current_col:
                 st.markdown(f'<div class="subject-header s1-header">{subject} (Coef: {coef})</div>', unsafe_allow_html=True)
                 subcol1, subcol2 = st.columns(2)
