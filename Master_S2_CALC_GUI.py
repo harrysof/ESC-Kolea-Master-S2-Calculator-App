@@ -1,8 +1,8 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Master 1\nCalculator",
-    page_icon= "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fe0.pxfuel.com%2Fwallpapers%2F951%2F106%2Fdesktop-wallpaper-harry-potter-hogwarts-lantern-castle-%25E2%2580%25A2-for-you-harry-potter-face.jpg&f=1&nofb=1&ipt=67dcf6b5e4bbaa6e40d5749842f331503249c2ea1075735ac84522d312eec051",
+    page_title="Master Grade Calculator",
+    page_icon="📊",
     layout="wide"
 )
 
@@ -19,16 +19,28 @@ st.markdown("""
         font-weight: bold;
     }
     .subject-header {
-        color: #ff812f;
         font-size: 1.2rem;
         padding: 0.5rem 0;
         border-bottom: 2px solid #E2E8F0;
         margin-top: 1rem;
     }
+    .s1-header {
+        color: #2fffe9;
+    }
+    .s2-header {
+        color: #ff812f;
+    }
     .stButton > button {
         width: 100%;
-        background-color: #ff812f;
         color: white;
+    }
+    .s1-button > button {
+        background-color: #2fffe9 !important;
+        color: #0e1118 !important;
+    }
+    .s2-button > button {
+        background-color: #ff812f !important;
+        color: white !important;
     }
     .result-box {
         padding: 1rem;
@@ -36,28 +48,6 @@ st.markdown("""
         margin-top: 1rem;
         background-color: #0e1118;
         border: 1px solid #48BB78;
-    }
-    .semester-selector {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-    .semester-button {
-        background-color: #4f8bf9;
-        color: white;
-        padding: 10px 30px;
-        border-radius: 20px;
-        text-align: center;
-        cursor: pointer;
-        width: 150px;
-    }
-    .semester-button.active {
-        background-color: #2662de;
-        font-weight: bold;
-    }
-    .s2-color {
-        color: #2fffe9;
     }
     
     /* Corner GIF Styles */
@@ -79,35 +69,45 @@ st.markdown("""
         transition: all 0.3s ease;
     }
     
-    /* Alternative: Bottom right corner */
-    .corner-gif-bottom {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 9999;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        opacity: 0.7;
+    /* Tab styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 24px;
+        justify-content: center;
+    }
+    .stTabs [data-baseweb="tab"] {
+        height: 50px;
+        padding: 0px 24px;
+        background-color: #262730;
+        border-radius: 10px 10px 0px 0px;
+        color: white;
+        font-weight: bold;
+    }
+    .stTabs [aria-selected="true"] {
+        background-color: #ff812f;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# Add the corner GIF - Replace the URL with your desired GIF
+# Add the corner GIF
 st.markdown("""
     <img src="https://i.gifer.com/XOsX.gif" class="corner-gif" alt="Finance GIF">
     """, unsafe_allow_html=True)
 
 st.markdown("""
     <div class="main-title">
-        Master <br>Grade Calculator<br>
+        Master Grade Calculator<br>
         <span style="font-size: 1.2rem; color: #dcdcdc;">By Sofiane Belkacem Nacer</span>
     </div>
     """, unsafe_allow_html=True)
 
-# Updated subjects and their coefficients from the screenshot
-subjects_with_coef = {
+# S1 subjects and data
+s1_subjects = [
+    "Inferential Statistics", "Financial Accounting", "Management",
+    "Marketing", "Macroeconomy", "Computer Science", "Law", "English"
+]
+
+# S2 subjects with coefficients
+s2_subjects_with_coef = {
     "PL": 3,
     "Analyse des Organisations": 4.5,
     "Fiscalité": 1.5,
@@ -119,20 +119,62 @@ subjects_with_coef = {
     "Microéconomie": 3
 }
 
-# Initialize session state
-for subject in subjects_with_coef.keys():
-    exam_key = f"{subject}_exam"
-    td_key = f"{subject}_TD"
+# Initialize session state for S1
+for subject in s1_subjects:
+    exam_key = f"s1_{subject}_exam"
+    td_key = f"s1_{subject}_TD"
     if exam_key not in st.session_state:
         st.session_state[exam_key] = None
     if td_key not in st.session_state:
         st.session_state[td_key] = None
 
-def calculate_semester_average():
+# Initialize session state for S2
+for subject in s2_subjects_with_coef.keys():
+    exam_key = f"s2_{subject}_exam"
+    td_key = f"s2_{subject}_TD"
+    if exam_key not in st.session_state:
+        st.session_state[exam_key] = None
+    if td_key not in st.session_state:
+        st.session_state[td_key] = None
+
+def calculate_s1_average():
     subjects_data = {}
-    for subject, coef in subjects_with_coef.items():
-        exam_key = f"{subject}_exam"
-        td_key = f"{subject}_TD"
+    for subject in s1_subjects:
+        exam_key = f"s1_{subject}_exam"
+        td_key = f"s1_{subject}_TD"
+        try:
+            exam_grade = float(st.session_state.get(exam_key, 0.0) or 0.0)
+            td_grade = float(st.session_state.get(td_key, 0.0) or 0.0)
+            subjects_data[subject] = {"exam": exam_grade, "td": td_grade}
+        except (ValueError, TypeError):
+            st.error(f"Invalid input for {subject}. Please enter numbers only.")
+            return
+
+    total = 0
+    for subject, grades in subjects_data.items():
+        average = (grades["exam"] * 0.67) + (grades["td"] * 0.33)
+        weight = 4.5 if subject in ["Inferential Statistics", "Financial Accounting", "Management", "Marketing"] else 3
+        total += average * weight
+
+    semester_average = total / 30
+    formatted_float = "{:.2f}".format(semester_average)
+    better_total = "{:.2f}".format(total)
+    
+    st.markdown(f"""
+        <div class="result-box">
+            <h3 style="color: #2F855A; margin: 0;">📊 S1 Results</h3>
+            <p style="font-size: 1.2rem; margin: 0.5rem 0;">
+                Semester Grade: <strong style="color: #2fffe9">{formatted_float}</strong><br>
+                Total: <strong>{better_total}</strong>
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+
+def calculate_s2_average():
+    subjects_data = {}
+    for subject, coef in s2_subjects_with_coef.items():
+        exam_key = f"s2_{subject}_exam"
+        td_key = f"s2_{subject}_TD"
         try:
             exam_grade = float(st.session_state.get(exam_key, 0.0) or 0.0)
             td_grade = float(st.session_state.get(td_key, 0.0) or 0.0)
@@ -142,7 +184,7 @@ def calculate_semester_average():
             return
 
     total_weighted_sum = 0
-    total_credits = sum(subjects_with_coef.values())
+    total_credits = sum(s2_subjects_with_coef.values())
     
     for subject, data in subjects_data.items():
         average = (data["exam"] * 0.67) + (data["td"] * 0.33)
@@ -150,7 +192,6 @@ def calculate_semester_average():
 
     semester_average = total_weighted_sum / total_credits
     formatted_float = "{:.2f}".format(semester_average)
-    better_total = "{:.2f}".format(total_weighted_sum)
     
     # Determine color based on average score
     color = "#FF0000"  # Default red for below 10
@@ -165,49 +206,97 @@ def calculate_semester_average():
     
     st.markdown(f"""
         <div class="result-box" style="text-align: center;">
-            <h3 style="color: #2F855A; margin: 0;">📊 Results</h3>
+            <h3 style="color: #2F855A; margin: 0;">📊 S2 Results</h3>
             <p style="font-size: 1.2rem; margin: 0.5rem 0;">
                 Moyenne S2: <strong style="color: {color}">{formatted_float}</strong><br>
             </p>
         </div>
     """, unsafe_allow_html=True)
 
-with st.container():
-    col1, col2 = st.columns(2)
+# Create tabs
+tab1, tab2 = st.tabs(["🎯 Semester 1", "🚀 Semester 2"])
+
+with tab1:
+    st.markdown("### Semester 1 Calculator")
     
-    subjects_list = list(subjects_with_coef.keys())
-    half = len(subjects_list) // 2
+    with st.container():
+        col1, col2 = st.columns(2)
+        
+        half = len(s1_subjects) // 2
+        
+        for i, subject in enumerate(s1_subjects):
+            current_col = col1 if i < half else col2
+            coef = 4.5 if subject in ["Inferential Statistics", "Financial Accounting", "Management", "Marketing"] else 3
+            with current_col:
+                st.markdown(f'<div class="subject-header s1-header">{subject} (Coef: {coef})</div>', unsafe_allow_html=True)
+                subcol1, subcol2 = st.columns(2)
+                with subcol1:
+                    st.number_input(
+                        "Exam",
+                        key=f"s1_{subject}_exam",
+                        min_value=0.0,
+                        value=None,
+                        step=0.05,
+                        format="%.2f"
+                    )
+                with subcol2:
+                    st.number_input(
+                        "TD",
+                        key=f"s1_{subject}_TD",
+                        min_value=0.0,
+                        value=None,
+                        step=0.05,
+                        format="%.2f"
+                    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
     
-    for i, subject in enumerate(subjects_list):
-        current_col = col1 if i < half else col2
-        coef = subjects_with_coef[subject]
-        with current_col:
-            st.markdown(f'<div class="subject-header">{subject}</div>', unsafe_allow_html=True)
-            subcol1, subcol2 = st.columns(2)
-            with subcol1:
-                st.number_input(
-                    "Exam",
-                    key=f"{subject}_exam",
-                    min_value=0.0,
-                    value=None,
-                    step=0.05,
-                    format="%.2f"
-                )
-            with subcol2:
-                st.number_input(
-                    "TD",
-                    key=f"{subject}_TD",
-                    min_value=0.0,
-                    value=None,
-                    step=0.05,
-                    format="%.2f"
-                )
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.markdown('<div class="s1-button">', unsafe_allow_html=True)
+        if st.button("Calculate S1 Grade", key="s1_calc"):
+            calculate_s1_average()
+        st.markdown('</div>', unsafe_allow_html=True)
 
-st.markdown("<br>", unsafe_allow_html=True)
+with tab2:
+    st.markdown("### Semester 2 Calculator")
+    
+    with st.container():
+        col1, col2 = st.columns(2)
+        
+        subjects_list = list(s2_subjects_with_coef.keys())
+        half = len(subjects_list) // 2
+        
+        for i, subject in enumerate(subjects_list):
+            current_col = col1 if i < half else col2
+            coef = s2_subjects_with_coef[subject]
+            with current_col:
+                st.markdown(f'<div class="subject-header s2-header">{subject} (Coef: {coef})</div>', unsafe_allow_html=True)
+                subcol1, subcol2 = st.columns(2)
+                with subcol1:
+                    st.number_input(
+                        "Exam",
+                        key=f"s2_{subject}_exam",
+                        min_value=0.0,
+                        value=None,
+                        step=0.05,
+                        format="%.2f"
+                    )
+                with subcol2:
+                    st.number_input(
+                        "TD",
+                        key=f"s2_{subject}_TD",
+                        min_value=0.0,
+                        value=None,
+                        step=0.05,
+                        format="%.2f"
+                    )
 
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    if st.button("Calculer Moyenne"):
-        calculate_semester_average()
-
-
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.markdown('<div class="s2-button">', unsafe_allow_html=True)
+        if st.button("Calculer Moyenne S2", key="s2_calc"):
+            calculate_s2_average()
+        st.markdown('</div>', unsafe_allow_html=True)
