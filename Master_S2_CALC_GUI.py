@@ -199,7 +199,6 @@ def calculate_and_store_module_average(prefix, subject_name):
     except (ValueError, TypeError):
         td_grade_float = 0.0
     
-    # Ensure grades are within bounds for calculation
     exam_grade_float = max(0.0, min(20.0, exam_grade_float))
     td_grade_float = max(0.0, min(20.0, td_grade_float))
 
@@ -209,12 +208,10 @@ def calculate_and_store_module_average(prefix, subject_name):
 
 def calculate_s1_average():
     total_weighted_sum = 0
-    total_credits_s1 = 30 # S1 total credits
+    total_credits_s1 = 30 
 
     for subject in s1_subjects:
         module_avg_key = f"s1_{subject}_module_avg"
-        # Ensure module average is calculated if inputs were directly changed before button press
-        # (Though on_change should handle it, this is a fallback)
         if st.session_state.get(f"s1_{subject}_exam") is not None or st.session_state.get(f"s1_{subject}_TD") is not None:
             calculate_and_store_module_average("s1", subject)
 
@@ -266,7 +263,6 @@ def calculate_s2_average():
         </div>
     """, unsafe_allow_html=True)
 
-# Create tabs
 tab1, tab2 = st.tabs(["Semestre 1", "Semestre 2"])
 
 with tab1:
@@ -275,7 +271,7 @@ with tab1:
     with st.container():
         col1, col2 = st.columns(2)
         
-        s1_subjects_list = list(s1_subjects) # Ensure it's a list for consistent ordering
+        s1_subjects_list = list(s1_subjects)
         half = len(s1_subjects_list) // 2
         
         for i, subject in enumerate(s1_subjects_list):
@@ -284,7 +280,6 @@ with tab1:
             with current_col:
                 st.markdown(f'<div class="subject-header s1-header">{subject} (Coef: {coef})</div>', unsafe_allow_html=True)
                 
-                # Keys for this subject
                 exam_key_s1 = f"s1_{subject}_exam"
                 td_key_s1 = f"s1_{subject}_TD"
                 module_avg_key_s1 = f"s1_{subject}_module_avg"
@@ -292,32 +287,25 @@ with tab1:
                 subcol_exam, subcol_td, subcol_avg = st.columns(3)
                 with subcol_exam:
                     st.number_input(
-                        "Exam",
-                        key=exam_key_s1,
-                        min_value=0.0, max_value=20.0,
-                        value=st.session_state.get(exam_key_s1),
-                        step=0.05, format="%.2f",
+                        "Exam", key=exam_key_s1, min_value=0.0, max_value=20.0,
+                        value=st.session_state.get(exam_key_s1), step=0.05, format="%.2f",
                         on_change=calculate_and_store_module_average, args=("s1", subject)
                     )
                 with subcol_td:
                     st.number_input(
-                        "TD",
-                        key=td_key_s1,
-                        min_value=0.0, max_value=20.0,
-                        value=st.session_state.get(td_key_s1),
-                        step=0.05, format="%.2f",
+                        "TD", key=td_key_s1, min_value=0.0, max_value=20.0,
+                        value=st.session_state.get(td_key_s1), step=0.05, format="%.2f",
                         on_change=calculate_and_store_module_average, args=("s1", subject)
                     )
                 with subcol_avg:
                     avg_val = float(st.session_state.get(module_avg_key_s1, 0.0))
-                    avg_color = "#FF0000" # Red
-                    if avg_val >= 15: avg_color = "#D89CF6" # Purple
-                    elif avg_val >= 10: avg_color = "#50D890" # Green
-                    elif avg_val >= 7: avg_color = "#4682B4" # SteelBlue
+                    avg_color = "#FF0000" 
+                    if avg_val >= 15: avg_color = "#D89CF6" 
+                    elif avg_val >= 10: avg_color = "#50D890" 
+                    elif avg_val >= 7: avg_color = "#4682B4" 
                     
-                    # The negative margin is crucial for vertical alignment. Adjust if needed.
                     module_avg_html = f"""
-                    <div style="margin-top: -0.18rem;"> 
+                    <div> 
                         <label class='module-average-label'>Moyenne</label>
                         <div class="module-average-display" style="color: {avg_color};">
                             {avg_val:.2f}
@@ -326,9 +314,7 @@ with tab1:
                     """
                     st.markdown(module_avg_html, unsafe_allow_html=True)
 
-
     st.markdown("<br>", unsafe_allow_html=True)
-    
     btn_col_s1_1, btn_col_s1_2, btn_col_s1_3 = st.columns([1, 2, 1])
     with btn_col_s1_2:
         st.markdown('<div class="s1-button">', unsafe_allow_html=True)
@@ -358,31 +344,25 @@ with tab2:
                 subcol_exam, subcol_td, subcol_avg = st.columns(3)
                 with subcol_exam:
                     st.number_input(
-                        "Exam",
-                        key=exam_key_s2,
-                        min_value=0.0, max_value=20.0,
-                        value=st.session_state.get(exam_key_s2),
-                        step=0.05, format="%.2f",
+                        "Exam", key=exam_key_s2, min_value=0.0, max_value=20.0,
+                        value=st.session_state.get(exam_key_s2), step=0.05, format="%.2f",
                         on_change=calculate_and_store_module_average, args=("s2", subject)
                     )
                 with subcol_td:
                     st.number_input(
-                        "TD",
-                        key=td_key_s2,
-                        min_value=0.0, max_value=20.0,
-                        value=st.session_state.get(td_key_s2),
-                        step=0.05, format="%.2f",
+                        "TD", key=td_key_s2, min_value=0.0, max_value=20.0,
+                        value=st.session_state.get(td_key_s2), step=0.05, format="%.2f",
                         on_change=calculate_and_store_module_average, args=("s2", subject)
                     )
                 with subcol_avg:
                     avg_val = float(st.session_state.get(module_avg_key_s2, 0.0))
-                    avg_color = "#FF0000" # Red
-                    if avg_val >= 15: avg_color = "#D89CF6" # Purple
-                    elif avg_val >= 10: avg_color = "#50D890" # Green
-                    elif avg_val >= 7: avg_color = "#4682B4" # SteelBlue
+                    avg_color = "#FF0000" 
+                    if avg_val >= 15: avg_color = "#D89CF6" 
+                    elif avg_val >= 10: avg_color = "#50D890" 
+                    elif avg_val >= 7: avg_color = "#4682B4"
                     
                     module_avg_html = f"""
-                    <div style="margin-top: -0.18rem;">
+                    <div>
                         <label class='module-average-label'>Moyenne</label>
                         <div class="module-average-display" style="color: {avg_color};">
                             {avg_val:.2f}
@@ -392,7 +372,6 @@ with tab2:
                     st.markdown(module_avg_html, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-    
     btn_col_s2_1, btn_col_s2_2, btn_col_s2_3 = st.columns([1, 2, 1])
     with btn_col_s2_2:
         st.markdown('<div class="s2-button">', unsafe_allow_html=True)
